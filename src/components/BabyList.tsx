@@ -1,4 +1,5 @@
 import type { Baby } from '../types/baby'
+import BottleBackground from './BottleBackground'
 
 interface BabyListProps {
   babies: Baby[]
@@ -6,9 +7,9 @@ interface BabyListProps {
 }
 
 const EmptyState = ({ onAddBaby }: { onAddBaby: () => void }) => (
-  <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex flex-col items-center justify-center px-4 py-6 sm:p-6">
+  <div className="min-h-screen flex flex-col items-center justify-center px-4 py-6 sm:p-6 relative">
     <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 text-center w-full max-w-sm sm:max-w-md">
-      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">
+      <h1 className="text-2xl sm:text-3xl font-semibold text-purple-400 mb-4 sm:mb-6 tracking-wide drop-shadow-sm">
         Registro de tomas
       </h1>
       <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
@@ -26,7 +27,7 @@ const EmptyState = ({ onAddBaby }: { onAddBaby: () => void }) => (
 
 const BabyCard = ({ baby }: { baby: Baby }) => (
   <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 hover:shadow-lg transition-all duration-200 active:scale-[0.98] cursor-pointer touch-manipulation">
-    <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 truncate">
+    <h3 className="text-lg sm:text-xl font-medium text-gray-800 mb-2 truncate">
       {baby.name}
     </h3>
     <p className="text-gray-600 text-sm sm:text-base">
@@ -53,27 +54,35 @@ const FloatingAddButton = ({ onAddBaby }: { onAddBaby: () => void }) => (
 
 const BabyList: React.FC<BabyListProps> = ({ babies, onAddBaby }) => {
   if (babies.length === 0) {
-    return <EmptyState onAddBaby={onAddBaby} />
+    return (
+      <>
+        <BottleBackground />
+        <EmptyState onAddBaby={onAddBaby} />
+      </>
+    )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 px-4 py-6 sm:p-6">
-      <div className="max-w-6xl mx-auto">
-        <header className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 leading-tight px-2">
-            Registro de tomas de {babies[0].name}
-          </h1>
-        </header>
+    <>
+      <BottleBackground />
+      <div className="min-h-screen px-4 py-6 sm:p-6 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <header className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">
+              Registro de tomas de {babies[0].name}
+            </h1>
+          </header>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {babies.map((baby) => (
-            <BabyCard key={baby.id} baby={baby} />
-          ))}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {babies.map((baby) => (
+              <BabyCard key={baby.id} baby={baby} />
+            ))}
+          </div>
+
+          <FloatingAddButton onAddBaby={onAddBaby} />
         </div>
-
-        <FloatingAddButton onAddBaby={onAddBaby} />
       </div>
-    </div>
+    </>
   )
 }
 

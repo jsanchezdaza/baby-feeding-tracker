@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import BottleBackground from './BottleBackground'
 
 interface AddBabyFormData {
   name: string
@@ -83,10 +84,12 @@ const AddBabyForm: React.FC<AddBabyFormProps> = ({ onAddBaby, onCancel }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center px-4 py-6 sm:p-6">
+    <>
+      <BottleBackground />
+      <div className="min-h-screen flex items-center justify-center px-4 py-6 sm:p-6 relative z-10">
       <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-sm sm:max-w-md lg:max-w-lg">
         <header className="mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 text-center leading-tight">
+          <h2 className="text-xl sm:text-2xl font-semibold text-purple-400 text-center leading-tight tracking-wide drop-shadow-sm">
             Agregar nuevo bebé
           </h2>
         </header>
@@ -121,7 +124,8 @@ const AddBabyForm: React.FC<AddBabyFormProps> = ({ onAddBaby, onCancel }) => {
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 
