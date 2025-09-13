@@ -1,6 +1,6 @@
 # 🍼 Baby Feeding Tracker
 
-![CI Status](https://github.com/username/baby-feeding-tracker/workflows/CI/badge.svg)
+![CI Status](https://github.com/jsanchezdaza/baby-feeding-tracker/workflows/CI/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A modern and responsive web application for tracking your baby's feeding schedule. Built with React, TypeScript, and Tailwind CSS following development best practices.
@@ -26,7 +26,7 @@ A modern and responsive web application for tracking your baby's feeding schedul
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/baby-feeding-tracker.git
+git clone https://github.com/jsanchezdaza/baby-feeding-tracker.git
 cd baby-feeding-tracker
 
 # Install dependencies
