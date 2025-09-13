@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .min-h-screen-mobile {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+@layer utilities {
+  .mobile-device input,
+  .mobile-device select,
+  .mobile-device textarea {
+    font-size: 16px;
+  }
+
+  .ios-device {
+    -webkit-overflow-scrolling: touch;
+  }
+}
