@@ -34,7 +34,7 @@ describe('BabyList', () => {
     expect(screen.queryByText('Añadir bebé')).not.toBeInTheDocument()
   })
 
-  it('should have correct title format for Sofia', () => {
+  it('should show "Seleccione un bebé" title when babies exist', () => {
     const mockBabies: Baby[] = [
       {
         id: '1',
@@ -46,7 +46,7 @@ describe('BabyList', () => {
 
     render(<BabyList babies={mockBabies} onAddBaby={mockOnAddBaby} />)
 
-    expect(screen.getByText('Registro de tomas de Sofia')).toBeInTheDocument()
+    expect(screen.getByText('Seleccione un bebé')).toBeInTheDocument()
   })
 
   it('should call onAddBaby when "Añadir bebé" button is clicked', async () => {

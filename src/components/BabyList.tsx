@@ -69,7 +69,7 @@ const BabyList: React.FC<BabyListProps> = ({ babies, onAddBaby }) => {
         <div className="max-w-6xl mx-auto">
           <header className="text-center mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">
-              Registro de tomas de {babies[0].name}
+              Seleccione un bebé
             </h1>
           </header>
 
