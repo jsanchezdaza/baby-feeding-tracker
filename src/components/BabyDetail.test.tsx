@@ -115,4 +115,14 @@ describe('BabyDetail', () => {
 
     expect(mockOnAddFeeding).toHaveBeenCalledWith(150)
   })
+
+  it('should have increased top padding', () => {
+    const mockOnBack = vi.fn()
+    const mockOnAddFeeding = vi.fn()
+
+    render(<BabyDetail baby={mockBaby} feedingRecords={[]} onBack={mockOnBack} onAddFeeding={mockOnAddFeeding} />)
+
+    const container = screen.getByText('Registro de tomas de Sofia').closest('.min-h-screen')
+    expect(container).toHaveClass('pt-12')
+  })
 })

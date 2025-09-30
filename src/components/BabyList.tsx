@@ -61,7 +61,7 @@ const BabyList: React.FC<BabyListProps> = ({ babies, onAddBaby, onSelectBaby }) 
   }
 
   return (
-    <div className="min-h-screen px-4 py-6 sm:p-6 relative z-10">
+    <div className="min-h-screen px-4 pt-12 pb-6 sm:pt-12 sm:px-6 sm:pb-6 relative z-10">
       <div className="max-w-6xl mx-auto">
         <header className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">

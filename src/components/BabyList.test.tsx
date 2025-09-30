@@ -80,4 +80,20 @@ describe('BabyList', () => {
 
     expect(mockOnSelectBaby).toHaveBeenCalledWith(mockBabies[0])
   })
+
+  it('should have increased top padding', () => {
+    const mockBabies: Baby[] = [
+      {
+        id: '1',
+        name: 'Sofia',
+        birthDate: new Date('2024-01-15')
+      }
+    ]
+    const mockOnAddBaby = vi.fn()
+
+    render(<BabyList babies={mockBabies} onAddBaby={mockOnAddBaby} />)
+
+    const container = screen.getByText('Seleccione un bebé').closest('.min-h-screen')
+    expect(container).toHaveClass('pt-12')
+  })
 })

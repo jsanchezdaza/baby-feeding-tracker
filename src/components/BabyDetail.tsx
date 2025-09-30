@@ -10,6 +10,8 @@ interface BabyDetailProps {
   onAddFeeding: (amount: number) => void
 }
 
+const CONTAINER_CLASSES = "min-h-screen px-4 pt-12 pb-6 sm:pt-12 sm:px-6 sm:pb-6 relative z-10"
+
 const BabyDetail: React.FC<BabyDetailProps> = ({ baby, feedingRecords, onBack, onAddFeeding }) => {
   const [showAddForm, setShowAddForm] = useState(false)
   const [amount, setAmount] = useState('')
@@ -54,7 +56,7 @@ const BabyDetail: React.FC<BabyDetailProps> = ({ baby, feedingRecords, onBack, o
 
   if (showAddForm) {
     return (
-      <div className="min-h-screen px-4 py-6 sm:p-6 relative z-10">
+      <div className={CONTAINER_CLASSES}>
         <div className="max-w-md mx-auto">
           <header className="text-center mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">
@@ -104,7 +106,7 @@ const BabyDetail: React.FC<BabyDetailProps> = ({ baby, feedingRecords, onBack, o
   }
 
   return (
-    <div className="min-h-screen px-4 py-6 sm:p-6 relative z-10">
+    <div className={CONTAINER_CLASSES}>
         <div className="max-w-4xl mx-auto">
           <header className="text-center mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">
