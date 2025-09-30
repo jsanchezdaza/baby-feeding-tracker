@@ -1,9 +1,9 @@
 import type { Baby } from '../types/baby'
-import BottleBackground from './BottleBackground'
 
 interface BabyListProps {
   babies: Baby[]
   onAddBaby: () => void
+  onSelectBaby?: (baby: Baby) => void
 }
 
 const EmptyState = ({ onAddBaby }: { onAddBaby: () => void }) => (
@@ -25,8 +25,11 @@ const EmptyState = ({ onAddBaby }: { onAddBaby: () => void }) => (
   </div>
 )
 
-const BabyCard = ({ baby }: { baby: Baby }) => (
-  <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 hover:shadow-lg transition-all duration-200 active:scale-[0.98] cursor-pointer touch-manipulation">
+const BabyCard = ({ baby, onSelectBaby }: { baby: Baby, onSelectBaby?: (baby: Baby) => void }) => (
+  <div
+    className="bg-white rounded-xl shadow-md p-4 sm:p-6 hover:shadow-lg transition-all duration-200 active:scale-[0.98] cursor-pointer touch-manipulation"
+    onClick={() => onSelectBaby?.(baby)}
+  >
     <h3 className="text-lg sm:text-xl font-medium text-gray-800 mb-2 truncate">
       {baby.name}
     </h3>
@@ -52,37 +55,29 @@ const FloatingAddButton = ({ onAddBaby }: { onAddBaby: () => void }) => (
   </div>
 )
 
-const BabyList: React.FC<BabyListProps> = ({ babies, onAddBaby }) => {
+const BabyList: React.FC<BabyListProps> = ({ babies, onAddBaby, onSelectBaby }) => {
   if (babies.length === 0) {
-    return (
-      <>
-        <BottleBackground />
-        <EmptyState onAddBaby={onAddBaby} />
-      </>
-    )
+    return <EmptyState onAddBaby={onAddBaby} />
   }
 
   return (
-    <>
-      <BottleBackground />
-      <div className="min-h-screen px-4 py-6 sm:p-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <header className="text-center mb-6 sm:mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">
-              Seleccione un bebé
-            </h1>
-          </header>
+    <div className="min-h-screen px-4 py-6 sm:p-6 relative z-10">
+      <div className="max-w-6xl mx-auto">
+        <header className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-purple-400 leading-tight px-2 tracking-wide drop-shadow-sm">
+            Seleccione un bebé
+          </h1>
+        </header>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {babies.map((baby) => (
-              <BabyCard key={baby.id} baby={baby} />
-            ))}
-          </div>
-
-          <FloatingAddButton onAddBaby={onAddBaby} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {babies.map((baby) => (
+            <BabyCard key={baby.id} baby={baby} onSelectBaby={onSelectBaby} />
+          ))}
         </div>
+
+        <FloatingAddButton onAddBaby={onAddBaby} />
       </div>
-    </>
+    </div>
   )
 }
 

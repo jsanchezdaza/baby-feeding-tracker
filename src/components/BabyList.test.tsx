@@ -60,4 +60,24 @@ describe('BabyList', () => {
 
     expect(mockOnAddBaby).toHaveBeenCalled()
   })
+
+  it('should call onSelectBaby when a baby card is clicked', async () => {
+    const mockBabies: Baby[] = [
+      {
+        id: '1',
+        name: 'Sofia',
+        birthDate: new Date('2024-01-15')
+      }
+    ]
+    const mockOnAddBaby = vi.fn()
+    const mockOnSelectBaby = vi.fn()
+    const user = userEvent.setup()
+
+    render(<BabyList babies={mockBabies} onAddBaby={mockOnAddBaby} onSelectBaby={mockOnSelectBaby} />)
+
+    const babyCard = screen.getByText('Sofia')
+    await user.click(babyCard)
+
+    expect(mockOnSelectBaby).toHaveBeenCalledWith(mockBabies[0])
+  })
 })

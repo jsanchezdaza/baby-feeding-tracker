@@ -67,7 +67,7 @@ describe('Responsive Layout Tests', () => {
     it('should render BabyList with mobile-optimized spacing', () => {
       render(<BabyList babies={mockBabies} onAddBaby={mockOnAddBaby} />)
 
-      const title = screen.getByText('Registro de tomas de Sofia')
+      const title = screen.getByText('Seleccione un bebé')
       expect(title).toBeInTheDocument()
 
       // Verify babies are displayed (should be single column on mobile)
@@ -98,7 +98,7 @@ describe('Responsive Layout Tests', () => {
     it('should render BabyList with tablet layout', () => {
       render(<BabyList babies={mockBabies} onAddBaby={mockOnAddBaby} />)
 
-      expect(screen.getByText('Registro de tomas de Sofia')).toBeInTheDocument()
+      expect(screen.getByText('Seleccione un bebé')).toBeInTheDocument()
       expect(screen.getByText('Sofia')).toBeInTheDocument()
       expect(screen.getByText('Diego')).toBeInTheDocument()
     })
@@ -112,7 +112,7 @@ describe('Responsive Layout Tests', () => {
     it('should render BabyList with desktop layout', () => {
       render(<BabyList babies={mockBabies} onAddBaby={mockOnAddBaby} />)
 
-      expect(screen.getByText('Registro de tomas de Sofia')).toBeInTheDocument()
+      expect(screen.getByText('Seleccione un bebé')).toBeInTheDocument()
       expect(screen.getByText('Sofia')).toBeInTheDocument()
       expect(screen.getByText('Diego')).toBeInTheDocument()
     })
