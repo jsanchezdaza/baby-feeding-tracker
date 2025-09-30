@@ -1,5 +1,8 @@
 import { supabase } from '../lib/supabase'
 import type { FeedingRecord } from '../types/feeding'
+import type { Database } from '../types/database.types'
+
+type FeedingRow = Database['public']['Tables']['feeding_records']['Row']
 
 export const createFeeding = async (feedingData: {
   babyId: string
@@ -12,17 +15,19 @@ export const createFeeding = async (feedingData: {
       baby_id: feedingData.babyId,
       amount: feedingData.amount,
       timestamp: feedingData.timestamp?.toISOString() || new Date().toISOString()
-    } as any)
+    } as unknown as FeedingRow)
     .select()
     .single()
 
   if (error || !data) throw error || new Error('No data returned')
 
+  const feeding = data as unknown as FeedingRow
+
   return {
-    id: (data as any).id,
-    babyId: (data as any).baby_id,
-    amount: (data as any).amount,
-    timestamp: new Date((data as any).timestamp)
+    id: feeding.id,
+    babyId: feeding.baby_id,
+    amount: feeding.amount,
+    timestamp: new Date(feeding.timestamp)
   }
 }
 
@@ -35,7 +40,7 @@ export const getFeedingsByBaby = async (babyId: string): Promise<FeedingRecord[]
 
   if (error || !data) throw error || new Error('No data returned')
 
-  return (data as any[]).map((record: any) => ({
+  return (data as unknown as FeedingRow[]).map((record) => ({
     id: record.id,
     babyId: record.baby_id,
     amount: record.amount,

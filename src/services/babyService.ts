@@ -1,5 +1,8 @@
 import { supabase } from '../lib/supabase'
 import type { Baby } from '../types/baby'
+import type { Database } from '../types/database.types'
+
+type BabyRow = Database['public']['Tables']['babies']['Row']
 
 export const createBaby = async (babyData: {
   name: string
@@ -10,16 +13,18 @@ export const createBaby = async (babyData: {
     .insert({
       name: babyData.name,
       birth_date: babyData.birthDate.toISOString().split('T')[0]
-    } as any)
+    } as unknown as BabyRow)
     .select()
     .single()
 
   if (error || !data) throw error || new Error('No data returned')
 
+  const baby = data as unknown as BabyRow
+
   return {
-    id: (data as any).id,
-    name: (data as any).name,
-    birthDate: new Date((data as any).birth_date)
+    id: baby.id,
+    name: baby.name,
+    birthDate: new Date(baby.birth_date)
   }
 }
 
@@ -31,7 +36,7 @@ export const getBabies = async (): Promise<Baby[]> => {
 
   if (error || !data) throw error || new Error('No data returned')
 
-  return (data as any[]).map((baby: any) => ({
+  return (data as unknown as BabyRow[]).map((baby) => ({
     id: baby.id,
     name: baby.name,
     birthDate: new Date(baby.birth_date)
@@ -49,19 +54,21 @@ export const updateBaby = async (
     updateData.birth_date = updates.birthDate.toISOString().split('T')[0]
   }
 
-  const { data, error } = await (supabase
-    .from('babies') as any)
-    .update(updateData)
+  const { data, error } = await supabase
+    .from('babies')
+    .update(updateData as unknown as Partial<BabyRow>)
     .eq('id', id)
     .select()
     .single()
 
   if (error || !data) throw error || new Error('No data returned')
 
+  const baby = data as unknown as BabyRow
+
   return {
-    id: (data as any).id,
-    name: (data as any).name,
-    birthDate: new Date((data as any).birth_date)
+    id: baby.id,
+    name: baby.name,
+    birthDate: new Date(baby.birth_date)
   }
 }
 
