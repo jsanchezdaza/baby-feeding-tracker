@@ -1,7 +1,23 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
+
+// Mock Supabase
+vi.mock('./lib/supabase', () => ({
+  supabase: {
+    from: vi.fn(() => ({
+      select: vi.fn(() => ({
+        order: vi.fn(() => Promise.resolve({ data: [], error: null }))
+      })),
+      insert: vi.fn(() => ({
+        select: vi.fn(() => ({
+          single: vi.fn(() => Promise.resolve({ data: null, error: null }))
+        }))
+      }))
+    }))
+  }
+}))
 
 describe('App', () => {
   it('should maintain stable background when navigating between screens', async () => {
