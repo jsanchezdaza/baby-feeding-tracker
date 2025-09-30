@@ -12,17 +12,17 @@ export const createFeeding = async (feedingData: {
       baby_id: feedingData.babyId,
       amount: feedingData.amount,
       timestamp: feedingData.timestamp?.toISOString() || new Date().toISOString()
-    })
+    } as any)
     .select()
     .single()
 
-  if (error) throw error
+  if (error || !data) throw error || new Error('No data returned')
 
   return {
-    id: data.id,
-    babyId: data.baby_id,
-    amount: data.amount,
-    timestamp: new Date(data.timestamp)
+    id: (data as any).id,
+    babyId: (data as any).baby_id,
+    amount: (data as any).amount,
+    timestamp: new Date((data as any).timestamp)
   }
 }
 
@@ -33,9 +33,9 @@ export const getFeedingsByBaby = async (babyId: string): Promise<FeedingRecord[]
     .eq('baby_id', babyId)
     .order('timestamp', { ascending: false })
 
-  if (error) throw error
+  if (error || !data) throw error || new Error('No data returned')
 
-  return data.map((record) => ({
+  return (data as any[]).map((record: any) => ({
     id: record.id,
     babyId: record.baby_id,
     amount: record.amount,

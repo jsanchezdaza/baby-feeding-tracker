@@ -10,16 +10,16 @@ export const createBaby = async (babyData: {
     .insert({
       name: babyData.name,
       birth_date: babyData.birthDate.toISOString().split('T')[0]
-    })
+    } as any)
     .select()
     .single()
 
-  if (error) throw error
+  if (error || !data) throw error || new Error('No data returned')
 
   return {
-    id: data.id,
-    name: data.name,
-    birthDate: new Date(data.birth_date)
+    id: (data as any).id,
+    name: (data as any).name,
+    birthDate: new Date((data as any).birth_date)
   }
 }
 
@@ -29,9 +29,9 @@ export const getBabies = async (): Promise<Baby[]> => {
     .select('*')
     .order('created_at', { ascending: false })
 
-  if (error) throw error
+  if (error || !data) throw error || new Error('No data returned')
 
-  return data.map((baby) => ({
+  return (data as any[]).map((baby: any) => ({
     id: baby.id,
     name: baby.name,
     birthDate: new Date(baby.birth_date)
@@ -49,19 +49,19 @@ export const updateBaby = async (
     updateData.birth_date = updates.birthDate.toISOString().split('T')[0]
   }
 
-  const { data, error } = await supabase
-    .from('babies')
+  const { data, error } = await (supabase
+    .from('babies') as any)
     .update(updateData)
     .eq('id', id)
     .select()
     .single()
 
-  if (error) throw error
+  if (error || !data) throw error || new Error('No data returned')
 
   return {
-    id: data.id,
-    name: data.name,
-    birthDate: new Date(data.birth_date)
+    id: (data as any).id,
+    name: (data as any).name,
+    birthDate: new Date((data as any).birth_date)
   }
 }
 

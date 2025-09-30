@@ -13,7 +13,7 @@ function App() {
   const [showAddForm, setShowAddForm] = useState(false)
   const [selectedBaby, setSelectedBaby] = useState<Baby | null>(null)
   const [feedingRecords, setFeedingRecords] = useState<FeedingRecord[]>([])
-  const [loading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
 
   useEffect(() => {
     loadBabies()
